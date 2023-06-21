@@ -12,43 +12,6 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-// export const createUsed = async (req, res, next) => {
-//   const userId = req.params.userId;
-//   const newUsed = new Used({
-//     make: req.body.make,
-//     model: req.body.model,
-//     yearmodel: req.body.yearmodenl,
-//     color: req.body.color,
-//     average: req.body.average,
-//     mileage: req.body.mileage,
-//     city: req.body.city,
-//     transmission: req.body.transmission,
-//     price: req.body.price,
-//   });
-//   try {
-//     const savedUsed = await newUsed.save();
-
-//     try {
-//       await User.findByIdAndUpdate(userId, {
-//         $push: { ads: savedUsed._id },
-//       });
-//       // try {
-//       //   await Used.insert({
-//       //     $push: { creator: userId },
-//       //   });
-//       // } catch (err) {
-//       //   next(err);
-//       // }
-//     } catch (err) {
-//       next(err);
-//     }
-//     await savedUsed.save();
-//     res.status(200).json(savedUsed);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// };
-
 export const createUsed = async (req, res, next) => {
   const userId = req.params.userId;
   const newUsed = new Used(req.body);
@@ -102,11 +65,10 @@ export const deleteUsed = async (req, res, next) => {
     await Used.findByIdAndDelete(idd);
     try {
       await User.updateOne({ _id: req.params.id }, { $pull: { ads: idd } });
-      res.status(200).json("array value deleted");
+      res.status(200).json("Ad has been deleted");
     } catch (err) {
       res.status(500).json(err);
     }
-    res.status(200).json("Ad has been deleted");
   } catch (err) {
     res.status(500).json(err);
   }

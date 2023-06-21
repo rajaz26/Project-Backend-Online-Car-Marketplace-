@@ -6,6 +6,8 @@ import {
   updateUser,
   getAds,
   createAd,
+  registerUser,
+  loginUser,
 } from "../controllers/auth.js";
 import multer from "multer";
 import Used from "../models/Used.js";
@@ -27,11 +29,14 @@ const upload = multer({ storage: storage });
 const router = express.Router();
 
 //Routes
-router.post("/signin", register);
-router.post("/login", login);
+
+// router.post("/signin", register);
+router.post("/login1", login);
 router.get("/find/:id", getUser);
 router.put("/profile/:id", updateUser);
 router.get("/info/:id", getAds);
+router.post("/register", registerUser);
+router.post("/login2", loginUser);
 // router.post("/post/:userId", createAd);
 router.post(
   "/post/:userId",
